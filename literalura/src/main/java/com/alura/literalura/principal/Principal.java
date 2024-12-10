@@ -63,6 +63,20 @@ public class Principal {
 					case 4:
 						listarAutoresVivosPorAnio();
 						break;
+					case 5:
+						System.out.println("Seleccione un idioma:");
+						System.out.println("1. Inglés");
+						System.out.println("2. Español");
+						int idiomaSeleccionado = teclado.nextInt();
+						teclado.nextLine();
+						if (idiomaSeleccionado == 1) {
+							mostrarLibrosPorIdioma("en");
+						} else if (idiomaSeleccionado == 2) {
+							mostrarLibrosPorIdioma("es");
+						} else {
+							System.out.println("Opción no válida.");
+						}
+						break;
 					case 0:
 						System.out.println("Saliendo del programa...");
 						break;
@@ -75,6 +89,8 @@ public class Principal {
 			}
 		} while (opcion != 0);
 	}
+
+
 
 	private void buscarLibroPorTitulo() {
 		System.out.print("Ingrese el título del libro a buscar: ");
@@ -162,6 +178,16 @@ public class Principal {
 			System.out.println("No se encontraron autores vivos en el año " + anio + ".");
 		} else {
 			autoresVivos.forEach(autor -> System.out.println("Autor: " + autor));
+		}
+	}
+
+	private void mostrarLibrosPorIdioma(String idioma) {
+		List<Libro> libros = libroRepository.findByIdioma(idioma);
+		if (libros.isEmpty()) {
+			System.out.println("No hay libros disponibles en este idioma.");
+		} else {
+			System.out.println("Libros disponibles en " + (idioma.equals("en") ? "Inglés" : "Español") + ":");
+			libros.forEach(libro -> System.out.println(libro.getTitulo()));
 		}
 	}
 }

@@ -8,4 +8,6 @@ import java.util.List;
 @Repository
 public interface LibroRepository  extends JpaRepository <Libro, Long> {
 	List<Libro> findAll();
+
+	List<Libro> findByIdioma(String idioma);
 }
